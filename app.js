@@ -25,7 +25,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.post('/emcInfoSend',function(req,res,next){
     console.log(req.body);
-    var sen = req.body.Info;
+    var sen = req.body.Content;
     var position = req.body.Position;
     res.end("success");
     var openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"; //문어 분석 URL'

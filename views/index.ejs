@@ -1,34 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <head>
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script>
-    $("#myForm").submit(function(){});
-  </script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheets/style.css">
   <title>Document</title>
+  <script>
+    $(document).ready(function () {
+      $('#NLP-result').val("test");
+    });
+    $(document).ready(function () {
+      $('#GPS-result').val("testing");
+    });
+    $(document).ready(function () {
+      $('#Matching-result').val("test...?");
+    });
+    $("#myForm").submit(function(){});
+  </script>
 </head>
-<body>
-<main>
-  <div class="left">
-    <form action="emcInfoSend" method="post" id="myForm">
-      <label for="Info">비상 정보</label>
-      <input type="text" name="Position" id="Position" class="input_box">
-      <input type="text" name="Info" id="Info" class="input_box">
-      <input type="submit" class="input_box_send">
-    </form>
-  </div>
-  <div class="right">
-    <ul class="output">
-      <li>NLP : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="NLP-result"></li>
-      <li>GPS : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="GPS-result"></li>
-      <li>Matching : <input type="text" id="Matching-result"></li>
-    </ul>
-  </div>
-</main>
 
+<body>
+<header>Guarvilian Service</header>
+  <main>
+    <div class="left">
+      <form action="emcInfoSend" method="post" id="myForm">
+        <h1 class="input_position_box">Input Position</h1><input type="text" name="Position"
+                                                                 class="input_position" autocomplete="off">
+        <h1 class="input_content_box">Input Content</h1><input type="text" name="Content" class="input_content"
+                                                               autocomplete="off">
+        <input type="submit" class="send_box" value="Send Info">
+      </form>
+
+    </div>
+    <div class="right">
+      <ul class="output">
+        <li>NLP : <input type="text" id="NLP-result"></li><br>
+        <li>GPS : <input type="text" id="GPS-result"></li><br>
+        <li>Matching : <input type="text" id="Matching-result"></li>
+      </ul>
+
+
+      <div id="map"></div>
+
+    </div>
+  </main>
+
+  <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37ebe19859a940b727d4c0ab372ed4c6&libraries=services"></script>
+  <script>
+    var mapContainer = document.getElementById('map'),
+            mapOption = {
+              center: new kakao.maps.LatLng(33.450701, 126.570667),
+              level: 3
+            };
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    //var input = request.getParameter("position"); <-- DB?먯꽌 ?낅젰諛쏆? 媛??ш린??
+    geocoder.addressSearch("충청북도 청주시 서원구 충대로 1", function (result, status) {
+
+      if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+        });
+        var infowindow = new kakao.maps.InfoWindow({
+          content: '<div style="width:150px;text-align:center;padding:1px 0;">Position</div>'
+        });
+        infowindow.open(map, marker);
+
+        map.setCenter(coords);
+      }
+    });
+  </script>
 </body>
 </html>

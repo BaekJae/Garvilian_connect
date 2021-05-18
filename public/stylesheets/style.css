@@ -1,35 +1,96 @@
-header{
-  width:100%;
-  height:100px;
-  background-color: lightcoral;
+header {
+  width: 100%;
+  height: 100px;
+  background-color: lightskyblue;
+  text-align: center;
+  font-size: 70px;
+  color: lightskyblue;
 }
-main{
-  width:100%;
-  height:600px;
+
+main {
+  width: 100%;
+  height: 600px;
   background-color: yellow;
 }
-.left{
-  width:50%;
-  height:100%;
-  float:left;
-  background-color: tomato;
+
+.left {
+  width: 49.6%;
+  height: 100%;
+  float: left;
+  background-color: lightpink;
+  border: solid black;
 }
-.input_box{
-  width:400px;
-  height:200px;
-  margin:10px;
-  border: 2px solid gold;
+
+.input_position_box {
+  font-size: large;
+  font-style: bold;
+  display: inline;
+  margin: 10px;
 }
-.input_box_send{
-  margin-left:10px;
-  display:block;
+
+.input_content_box {
+  font-size: large;
+  font-style: bold;
+  display: inline;
+  margin: 10px;
 }
-.right{
-  width:50%;
-  height:100%;
-  float:left;
-  background-color: lightblue;
+
+.input_position {
+  width: 400px;
+  height: 200px;
+  margin: 10px;
+  display: block;
+  border: 2px solid black;
 }
-.output{
+
+.input_content {
+  width: 400px;
+  height: 200px;
+  margin: 10px;
+  display: block;
+  border: 2px solid black;
+}
+
+.send_box {
+  margin-left: 10px;
+  width: 100px;
+  border: 2px solid black;
+  display: block;
+}
+
+.right {
+  width: 49.7%;
+  height: 100%;
+  float: left;
+  border: solid black;
+  background-color: lightgreen;
+}
+
+#NLP-result {
+  width: 300px;
+  height: 50px;
+  margin-left: 120px
+}
+
+#GPS-result {
+  width: 300px;
+  height: 50px;
+  margin-left: 120px;
+}
+
+#Matching-result {
+  width: 300px;
+  height: 50px;
+  margin-left: 80px;
+}
+
+.output {
   list-style: none;
+}
+
+#map {
+  width: 600px;
+  height: 300px;
+  margin: 50px;
+
 }
