@@ -27,9 +27,9 @@ app.post('/emcInfoSend',function(req,res,next){
     console.log(req.body);
     var sen = req.body.Content;
     var position = req.body.Position;
-    res.end("success");
+    res.redirect('/');
     var openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"; //문어 분석 URL'
-    var access_key = '3e184c53-50c5-484c-894d-59ed5b09f164';
+    var access_key = '';
     var analysisCode = 'ner';
     var text = sen;
     var requestJson = {
