@@ -10,7 +10,8 @@ var access_key = '';
 var analysisCode = 'ner';
 var text = '';
 var app = express();
-var request = require('request')
+const oracledb = require('oracledb');
+var request = require('request');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,6 +21,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+oracledb.getConnection({
+    user: 'system',
+    password: '1234',
+    host: 'localhost',
+    database: 'xe'
+}, function (err, conn){
+    if(err){
+        console.log('connection failed', err);
+        return;
+    }
+    console.log('connection success');
+    var code = 'A';
+    conn.execute("select * from PRE",{}, {outFormat:oracledb.OBJECT}, function (err,result){
+        if(err) throw err;
+        console.log('query read success');
+        dataStr = JSON.stringify(result);
+        arrStr = JSON.stringify(result.rows);
+        var arr = JSON.parse(arrStr);
+        console.log(arr);
+    });
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -45,8 +67,11 @@ app.post('/emcInfoSend',function(req,res,next){
         headers: {'Content-Type':'application/json; charset=UTF-8'}
     };
     request.post(options, function (error, response, body) {
+        var decoded = JSON.parse(body);
         console.log('responseCode = ' + response.statusCode);
         console.log('responseBody = ' + body);
+        console.log(Object.keys(decoded.return_object));
+        console.log(decoded.return_object.sentence[0].morp[0].type);
     });
 })
 // catch 404 and forward to error handler
